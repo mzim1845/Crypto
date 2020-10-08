@@ -1,11 +1,11 @@
 """Assignment 1: Cryptography for CS41 Winter 2020.
 
-Name: <YOUR NAME>
-SUNet: <SUNet ID>
+Name: Magyari Zsuzsanna
+ID: mzim1845
 
 Replace this placeholder text with a description of this module.
 """
-import utils
+import string
 
 
 #################
@@ -23,7 +23,21 @@ def encrypt_caesar(plaintext):
     :returns: The encrypted ciphertext.
     """
     # Your implementation here.
-    raise NotImplementedError('encrypt_caesar is not yet implemented!')
+    alphabet_upper = string.ascii_uppercase
+    alphabet_lower = string.ascii_lowercase
+    letters = set(plaintext)
+
+    ciphertext = plaintext
+    if ciphertext == "":
+        return ""
+    else:
+        for letter in letters:
+            if letter in alphabet_lower:
+                ciphertext = ciphertext.replace(letter, alphabet_lower[(alphabet_lower.index(letter) + 3) % 26])
+            if letter in alphabet_upper:
+                ciphertext = ciphertext.replace(letter, alphabet_upper[(alphabet_upper.index(letter) + 3) % 26])
+
+    return ciphertext
 
 
 def decrypt_caesar(ciphertext):
@@ -37,8 +51,21 @@ def decrypt_caesar(ciphertext):
     :returns: The decrypted plaintext.
     """
     # Your implementation here.
-    raise NotImplementedError('decrypt_caesar is not yet implemented!')
+    alphabet_upper = string.ascii_uppercase
+    alphabet_lower = string.ascii_lowercase
+    letters = set(ciphertext)
 
+    plaintext = ciphertext
+    if plaintext == "":
+        return ""
+    else:
+        for letter in letters:
+            if letter in alphabet_lower:
+                plaintext = plaintext.replace(letter, alphabet_lower[(alphabet_lower.index(letter) - 3) % 26])
+            if letter in alphabet_upper:
+                plaintext = plaintext.replace(letter, alphabet_upper[(alphabet_upper.index(letter) - 3) % 26])
+
+    return plaintext
 
 ###################
 # VIGENERE CIPHER #
