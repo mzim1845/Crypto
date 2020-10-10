@@ -6,6 +6,8 @@ ID: mzim1845
 Replace this placeholder text with a description of this module.
 """
 import string
+import random
+import utils
 
 
 #################
@@ -25,19 +27,21 @@ def encrypt_caesar(plaintext):
     # Your implementation here.
     alphabet_upper = string.ascii_uppercase
     alphabet_lower = string.ascii_lowercase
-    letters = set(plaintext)
 
-    ciphertext = plaintext
-    if ciphertext == "":
+    ciphertext = []
+    if plaintext == "":
         return ""
     else:
-        for letter in letters:
-            if letter in alphabet_lower:
-                ciphertext = ciphertext.replace(letter, alphabet_lower[(alphabet_lower.index(letter) + 3) % 26])
-            if letter in alphabet_upper:
-                ciphertext = ciphertext.replace(letter, alphabet_upper[(alphabet_upper.index(letter) + 3) % 26])
+        plaint_nr = len(plaintext)
+        for i in range(plaint_nr):
+            if plaintext[i] in alphabet_lower:
+                ciphertext.append(alphabet_lower[(alphabet_lower.index(plaintext[i]) + 3) % 26])
+            elif plaintext[i] in alphabet_upper:
+                ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) + 3) % 26])
+            else:
+                ciphertext.append(plaintext[i])
 
-    return ciphertext
+    return "".join(ciphertext)
 
 
 def decrypt_caesar(ciphertext):
@@ -53,23 +57,26 @@ def decrypt_caesar(ciphertext):
     # Your implementation here.
     alphabet_upper = string.ascii_uppercase
     alphabet_lower = string.ascii_lowercase
-    letters = set(ciphertext)
 
-    plaintext = ciphertext
-    if plaintext == "":
+    plaintext = []
+    if ciphertext == "":
         return ""
     else:
-        for letter in letters:
-            if letter in alphabet_lower:
-                plaintext = plaintext.replace(letter, alphabet_lower[(alphabet_lower.index(letter) - 3) % 26])
-            if letter in alphabet_upper:
-                plaintext = plaintext.replace(letter, alphabet_upper[(alphabet_upper.index(letter) - 3) % 26])
+        ciphert_nr = len(ciphertext)
+        for i in range(ciphert_nr):
+            if ciphertext[i] in alphabet_lower:
+                plaintext.append(alphabet_lower[(alphabet_lower.index(ciphertext[i]) - 3) % 26])
+            elif ciphertext[i] in alphabet_upper:
+                plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) - 3) % 26])
+            else:
+                plaintext.append(ciphertext[i])
 
-    return plaintext
+    return "".join(plaintext)
 
 ###################
 # VIGENERE CIPHER #
 ###################
+
 
 def encrypt_vigenere(plaintext, keyword):
     """Encrypt plaintext using a Vigenere cipher with a keyword.
@@ -84,7 +91,26 @@ def encrypt_vigenere(plaintext, keyword):
     :returns: The encrypted ciphertext.
     """
     # Your implementation here.
-    raise NotImplementedError('encrypt_vigenere is not yet implemented!')
+    alphabet_upper = string.ascii_uppercase
+    alphabet_lower = string.ascii_lowercase
+
+    ciphertext = []
+    if plaintext == "":
+        return ""
+    else:
+        plaint_nr = len(plaintext)
+        key_nr = len(keyword)
+        for i in range(plaint_nr):
+            if plaintext[i] in alphabet_lower:
+                ciphertext.append(alphabet_lower[(alphabet_lower.index(plaintext[i]) +
+                                                  alphabet_lower.index(keyword[i % key_nr])) % 26])
+            elif plaintext[i] in alphabet_upper:
+                ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) +
+                                                  alphabet_upper.index(keyword[i % key_nr])) % 26])
+            else:
+                ciphertext.append(plaintext[i])
+
+    return "".join(ciphertext)
 
 
 def decrypt_vigenere(ciphertext, keyword):
@@ -100,12 +126,32 @@ def decrypt_vigenere(ciphertext, keyword):
     :returns: The decrypted plaintext.
     """
     # Your implementation here.
-    raise NotImplementedError('decrypt_vigenere is not yet implemented!')
+    alphabet_upper = string.ascii_uppercase
+    alphabet_lower = string.ascii_lowercase
+
+    plaintext = []
+    if ciphertext == "":
+        return ""
+    else:
+        ciphert_nr = len(ciphertext)
+        key_nr = len(keyword)
+        for i in range(ciphert_nr):
+            if ciphertext[i] in alphabet_lower:
+                plaintext.append(alphabet_lower[(alphabet_lower.index(ciphertext[i]) -
+                                                  alphabet_lower.index(keyword[i % key_nr])) % 26])
+            elif ciphertext[i] in alphabet_upper:
+                plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) -
+                                                  alphabet_upper.index(keyword[i % key_nr])) % 26])
+            else:
+                plaintext.append(ciphertext[i])
+
+    return "".join(plaintext)
 
 
 ########################################
 # MERKLE-HELLMAN KNAPSACK CRYPTOSYSTEM #
 ########################################
+
 
 def generate_private_key(n=8):
     """Generate a private key to use with the Merkle-Hellman Knapsack Cryptosystem.
@@ -132,7 +178,23 @@ def generate_private_key(n=8):
     :returns: 3-tuple private key `(w, q, r)`, with `w` a n-tuple, and q and r ints.
     """
     # Your implementation here.
-    raise NotImplementedError('generate_private_key is not yet implemented!')
+    w = []
+    sum = random.randint(2, 10)
+    w.append(sum)
+
+    for i in range(1, 8):
+        rand_num = random.randint(sum + 1, 2 * sum)
+        sum += rand_num
+        w.append(rand_num)
+
+    q = random.randint(sum+1, 2 * sum)
+    while True:
+        r = random.randint(2, q-1)
+        if utils.coprime(r, q):
+            break
+
+    key = (w, q, r)
+    return key
 
 
 def create_public_key(private_key):
@@ -151,7 +213,15 @@ def create_public_key(private_key):
     :returns: n-tuple public key
     """
     # Your implementation here.
-    raise NotImplementedError('create_public_key is not yet implemented!')
+    w = private_key[0]
+    q = private_key[1]
+    r = private_key[2]
+
+    beta = []
+    for i in range(0, 8):
+        beta.append(r * w[i] % q)
+
+    return tuple(beta)
 
 
 def encrypt_mh(message, public_key):
@@ -178,7 +248,17 @@ def encrypt_mh(message, public_key):
     :returns: Encrypted message bytes represented as a list of ints.
     """
     # Your implementation here.
-    raise NotImplementedError('encrypt_mh is not yet implemented!')
+    encrypted_list = []
+
+    for letter in message:
+        alpha = utils.byte_to_bits(ord(letter))
+        c = 0;
+        for i in range(8):
+            c += (alpha[i]*public_key[i])
+        encrypted_list.append(c)
+
+    return encrypted_list
+
 
 
 def decrypt_mh(message, private_key):
@@ -202,4 +282,111 @@ def decrypt_mh(message, private_key):
     :returns: bytearray or str of decrypted characters
     """
     # Your implementation here.
-    raise NotImplementedError('decrypt_mh is not yet implemented!')
+    w = private_key[0]
+    q = private_key[1]
+    r = private_key[2]
+    s = utils.modinv(r, q)
+    n = len(message)
+    plaintext = []
+
+    for i in range(n):
+        a = []
+        c = message[i] * s % q
+        k = 7;
+        while k >= 0:
+            if w[k] > c:
+                a.append(0)
+            else:
+                c -= w[k]
+                a.append(1)
+            k -= 1
+        a.reverse()
+        plaintext.append(chr(utils.bits_to_byte(a)))
+
+    return "".join(plaintext)
+
+
+def encrypt_scytale(plaintext, circumference):
+    ciphertext  = []
+    nr_char = len(plaintext)
+
+    for i in range(circumference):
+        j = i
+        while j < nr_char:
+            ciphertext.append(plaintext[j])
+            j += circumference
+
+    return "".join(ciphertext)
+
+
+def decrypt_scytale(ciphertext, circumference):
+    plaintext = []
+    nr_char = len(ciphertext)
+    q = nr_char // circumference
+    r = nr_char % circumference
+    n = q + (r > 0)
+
+    for i in range(n):
+        j = i
+        r_copy = r
+        while j < nr_char:
+            print(j)
+            plaintext.append(ciphertext[j])
+            if r_copy > 0:
+                j += n
+                r_copy -= 1
+                if r > 0 and i == (n-1) and r_copy == 0:
+                    break
+            else:
+                j += q
+
+    return "".join(plaintext)
+
+
+def encrypt_railfence(plaintext, num_rails):
+    ciphertext = []
+    char_nr = len(plaintext)
+    n = num_rails * 2 - 2
+    i = n
+    k = 0
+
+    while i > 0:
+        j = k
+        while j < char_nr:
+            ciphertext.append(plaintext[j])
+            j += i
+        k += 1
+        i -= 2
+
+    j = num_rails - 1
+    while j < char_nr:
+        ciphertext.append(plaintext[j])
+        j += n
+
+    return "".join(ciphertext)
+
+
+def decrypt_railfence(ciphertext, num_rails):
+    char_nr = len(ciphertext)
+    plaintext = [0] * char_nr
+    n = num_rails * 2 - 2
+    i = n
+    k = 0
+    m = 0
+
+    while i > 0:
+        j = m
+        while j < char_nr:
+            plaintext[j] = ciphertext[k]
+            j += i
+            k += 1
+        m += 1
+        i -= 2
+
+    j = num_rails - 1
+    while j < char_nr:
+        plaintext[j] = ciphertext[k]
+        j += n
+        k += 1
+
+    return "".join(plaintext)
