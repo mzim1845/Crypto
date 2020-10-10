@@ -35,10 +35,10 @@ def encrypt_caesar(plaintext):
         plaint_nr = len(plaintext)
         for i in range(plaint_nr):
             if plaintext[i] in alphabet_lower:
-                ciphertext.append(alphabet_lower[(alphabet_lower.index(plaintext[i]) + 3) % 26])
+                raise Exception("Plaintext can't contain lowercase characters")
             elif plaintext[i] in alphabet_upper:
                 ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) + 3) % 26])
-            else:
+            else:  # non-alphabetic characters
                 ciphertext.append(plaintext[i])
 
     return "".join(ciphertext)
@@ -65,10 +65,10 @@ def decrypt_caesar(ciphertext):
         ciphert_nr = len(ciphertext)
         for i in range(ciphert_nr):
             if ciphertext[i] in alphabet_lower:
-                plaintext.append(alphabet_lower[(alphabet_lower.index(ciphertext[i]) - 3) % 26])
+                raise Exception("Ciphertext can't contain lowercase characters")
             elif ciphertext[i] in alphabet_upper:
                 plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) - 3) % 26])
-            else:
+            else:  # non-alphabetic characters
                 plaintext.append(ciphertext[i])
 
     return "".join(plaintext)
@@ -94,6 +94,15 @@ def encrypt_vigenere(plaintext, keyword):
     alphabet_upper = string.ascii_uppercase
     alphabet_lower = string.ascii_lowercase
 
+    if len(keyword) == 0:
+        raise Exception("Keyword can't be an empty string")
+    else:
+        for letter in keyword:
+            if letter in alphabet_lower:
+                raise Exception("Keyword can't contain lowercase characters")
+            elif letter not in alphabet_upper:
+                raise Exception("Keyword can't contain non-alphabetic characters")
+
     ciphertext = []
     if plaintext == "":
         return ""
@@ -102,13 +111,12 @@ def encrypt_vigenere(plaintext, keyword):
         key_nr = len(keyword)
         for i in range(plaint_nr):
             if plaintext[i] in alphabet_lower:
-                ciphertext.append(alphabet_lower[(alphabet_lower.index(plaintext[i]) +
-                                                  alphabet_lower.index(keyword[i % key_nr])) % 26])
+                raise Exception("Plaintext can't contain lowercase characters")
             elif plaintext[i] in alphabet_upper:
                 ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) +
                                                   alphabet_upper.index(keyword[i % key_nr])) % 26])
-            else:
-                ciphertext.append(plaintext[i])
+            else:  # non-alphabetic characters
+                raise Exception("Plaintext can't contain non-alphabetic characters")
 
     return "".join(ciphertext)
 
@@ -129,6 +137,15 @@ def decrypt_vigenere(ciphertext, keyword):
     alphabet_upper = string.ascii_uppercase
     alphabet_lower = string.ascii_lowercase
 
+    if len(keyword) == 0:
+        raise Exception("Keyword can't be an empty string")
+    else:
+        for letter in keyword:
+            if letter in alphabet_lower:
+                raise Exception("Keyword can't contain lowercase characters")
+            elif letter not in alphabet_upper:
+                raise Exception("Keyword can't contain non-alphabetic characters")
+
     plaintext = []
     if ciphertext == "":
         return ""
@@ -137,13 +154,12 @@ def decrypt_vigenere(ciphertext, keyword):
         key_nr = len(keyword)
         for i in range(ciphert_nr):
             if ciphertext[i] in alphabet_lower:
-                plaintext.append(alphabet_lower[(alphabet_lower.index(ciphertext[i]) -
-                                                  alphabet_lower.index(keyword[i % key_nr])) % 26])
+                raise Exception("Ciphertext can't contain non-alphabetic characters")
             elif ciphertext[i] in alphabet_upper:
                 plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) -
-                                                  alphabet_upper.index(keyword[i % key_nr])) % 26])
-            else:
-                plaintext.append(ciphertext[i])
+                                                 alphabet_upper.index(keyword[i % key_nr])) % 26])
+            else:  # non-alphabetic characters
+                raise Exception("Ciphertext can't contain non-alphabetic characters")
 
     return "".join(plaintext)
 
@@ -179,15 +195,15 @@ def generate_private_key(n=8):
     """
     # Your implementation here.
     w = []
-    sum = random.randint(2, 10)
-    w.append(sum)
+    total = random.randint(2, 10)
+    w.append(total)
 
-    for i in range(1, 8):
-        rand_num = random.randint(sum + 1, 2 * sum)
-        sum += rand_num
+    for i in range(1, n):
+        rand_num = random.randint(total + 1, 2 * total)
+        total += rand_num
         w.append(rand_num)
 
-    q = random.randint(sum+1, 2 * sum)
+    q = random.randint(total+1, 2 * total)
     while True:
         r = random.randint(2, q-1)
         if utils.coprime(r, q):
@@ -252,13 +268,12 @@ def encrypt_mh(message, public_key):
 
     for letter in message:
         alpha = utils.byte_to_bits(ord(letter))
-        c = 0;
+        c = 0
         for i in range(8):
             c += (alpha[i]*public_key[i])
         encrypted_list.append(c)
 
     return encrypted_list
-
 
 
 def decrypt_mh(message, private_key):
@@ -290,29 +305,29 @@ def decrypt_mh(message, private_key):
     plaintext = []
 
     for i in range(n):
-        a = []
+        alpha = []
         c = message[i] * s % q
-        k = 7;
+        k = 7
         while k >= 0:
             if w[k] > c:
-                a.append(0)
+                alpha.append(0)
             else:
                 c -= w[k]
-                a.append(1)
+                alpha.append(1)
             k -= 1
-        a.reverse()
-        plaintext.append(chr(utils.bits_to_byte(a)))
+        alpha.reverse()
+        plaintext.append(chr(utils.bits_to_byte(alpha)))
 
     return "".join(plaintext)
 
 
 def encrypt_scytale(plaintext, circumference):
-    ciphertext  = []
+    ciphertext = []
     nr_char = len(plaintext)
 
-    for i in range(circumference):
+    for i in range(circumference): # row indices
         j = i
-        while j < nr_char:
+        while j < nr_char:  # column
             ciphertext.append(plaintext[j])
             j += circumference
 
@@ -322,9 +337,9 @@ def encrypt_scytale(plaintext, circumference):
 def decrypt_scytale(ciphertext, circumference):
     plaintext = []
     nr_char = len(ciphertext)
-    q = nr_char // circumference
-    r = nr_char % circumference
-    n = q + (r > 0)
+    q = nr_char // circumference   # number of columns with circumference number of rows
+    r = nr_char % circumference    # remainder = number of column without circumference number of rows
+    n = q + (r > 0)  # how many columns to be checked
 
     for i in range(n):
         j = i
@@ -346,11 +361,11 @@ def decrypt_scytale(ciphertext, circumference):
 def encrypt_railfence(plaintext, num_rails):
     ciphertext = []
     char_nr = len(plaintext)
-    n = num_rails * 2 - 2
-    i = n
-    k = 0
+    n = num_rails * 2 - 2  # step between the numbers of the first row
+    i = n  # step (decreasing each time with 2)
+    k = 0  # row index
 
-    while i > 0:
+    while i > 0:  # looping from first row to last but one
         j = k
         while j < char_nr:
             ciphertext.append(plaintext[j])
@@ -358,8 +373,8 @@ def encrypt_railfence(plaintext, num_rails):
         k += 1
         i -= 2
 
-    j = num_rails - 1
-    while j < char_nr:
+    j = num_rails - 1  # last row
+    while j < char_nr:  # step is the same as in the first one
         ciphertext.append(plaintext[j])
         j += n
 
@@ -369,12 +384,12 @@ def encrypt_railfence(plaintext, num_rails):
 def decrypt_railfence(ciphertext, num_rails):
     char_nr = len(ciphertext)
     plaintext = [0] * char_nr
-    n = num_rails * 2 - 2
-    i = n
-    k = 0
-    m = 0
+    n = num_rails * 2 - 2  # step between the numbers of the first row
+    i = n  # step (decreasing each time with 2)
+    k = 0  # row index
+    m = 0  # index for plaintext
 
-    while i > 0:
+    while i > 0:  # looping from first row to last but one
         j = m
         while j < char_nr:
             plaintext[j] = ciphertext[k]
@@ -383,8 +398,8 @@ def decrypt_railfence(ciphertext, num_rails):
         m += 1
         i -= 2
 
-    j = num_rails - 1
-    while j < char_nr:
+    j = num_rails - 1  # last row
+    while j < char_nr:  # step is the same as in the first one
         plaintext[j] = ciphertext[k]
         j += n
         k += 1
