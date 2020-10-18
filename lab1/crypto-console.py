@@ -13,6 +13,7 @@ from crypto import (encrypt_caesar, decrypt_caesar,
                     encrypt_vigenere, decrypt_vigenere,
                     encrypt_railfence, decrypt_railfence,
                     encrypt_scytale, decrypt_scytale,
+                    codebreak_vigenere,
                     generate_private_key, create_public_key,
                     encrypt_mh, decrypt_mh)
 
@@ -225,6 +226,19 @@ def run_merkle_hellman(encrypting, data):
         return decrypt_mh(chunks, private_key)
 
 
+def run_intelligent_codebreaker(encrypting, data):
+    """Run the Vigenere cipher cryptosystem."""
+    data = clean_scytale_text(data)
+
+    print("* Transform *")
+    circumference = clean_scytale_circumference(input("Circumference? "))
+    while not circumference:
+        circumference = clean_scytale_circumference(input("Circumference? "))
+
+    print("{}crypting {} using Scytale cipher and circumference {}...".format('En' if encrypting else 'De', data, circumference))
+
+    return (encrypt_scytale if encrypting else decrypt_scytale)(data, int(circumference))
+
 def run_suite():
     """Run a single iteration of the cryptography suite.
 
@@ -247,8 +261,9 @@ def run_suite():
     commands = {
         'C': run_caesar,         # Caesar Cipher
         'V': run_vigenere,       # Vigenere Cipher
-        'R': run_railfence,      # Vigenere Railfence
-        'S': run_scytale,      # Vigenere Scytale
+        'R': run_railfence,      # Railfence Cipher
+        'S': run_scytale,        #Scytale Cipher
+        'I': run_intelligent_codebreaker  #Intelligent Codebreaker
     }
     output = commands[system](encrypting, data)
     set_output(output)

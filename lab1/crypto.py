@@ -74,6 +74,33 @@ def decrypt_caesar(ciphertext):
 
     return "".join(plaintext)
 
+
+def encrypt_binary_file_caesar(filename):
+
+    barray = []
+    with open(filename, "rb") as fin:
+        with open("encrypted_"+filename, "wb") as fout:
+            byte = fin.read(1)
+            while byte:
+                barray.append((byte[0]+3)%256)
+                byte = fin.read(1)
+            fout.write(bytearray(barray))
+    fin.close()
+    fout.close()
+
+
+def decrypt_binary_file_caesar(filename):
+    barray = []
+    with open(filename, "rb") as fin:
+        with open("decrypted_" + filename, "wb") as fout:
+            byte = fin.read(1)
+            while byte:
+                barray.append((byte[0] - 3) % 256)
+                byte = fin.read(1)
+            fout.write(bytearray(barray))
+    fin.close()
+    fout.close()
+
 ###################
 # VIGENERE CIPHER #
 ###################

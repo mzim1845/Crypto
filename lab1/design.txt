@@ -1,5 +1,5 @@
-Name: <YOUR NAME>
-SUNet: <SUNet ID>
+Name: Magyari Zsuzsanna
+ID: mzim1845
 
 In 1-3 sentences per section, comment on your approach to each of the parts of the assignment. What was your high-level strategy? How did you translate that into code? Did you make use of any Pythonic practices? We want you to reflect on your coding style, and how you are maximally leveraging Python's utilities.
 
@@ -9,5 +9,11 @@ In 1-3 sentences per section, comment on your approach to each of the parts of t
 # Vigenere Cipher
 
 
-# Merkle-Hellman Knapsack Cryptosystem
+# Railfence Cipher
+
+
+# Scytale Cipher
+
+
+# Intelligent Codebreaker
 
