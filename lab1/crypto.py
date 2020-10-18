@@ -8,7 +8,8 @@ Replace this placeholder text with a description of this module.
 import string
 import random
 import utils
-
+import os.path
+from os import path
 
 #################
 # CAESAR CIPHER #
@@ -116,7 +117,7 @@ def encrypt_vigenere(plaintext, keyword):
                 ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) +
                                                   alphabet_upper.index(keyword[i % key_nr])) % 26])
             else:  # non-alphabetic characters
-                raise Exception("Plaintext can't contain non-alphabetic characters")
+                ciphertext.append(plaintext[i])
 
     return "".join(ciphertext)
 
@@ -152,17 +153,55 @@ def decrypt_vigenere(ciphertext, keyword):
     else:
         ciphert_nr = len(ciphertext)
         key_nr = len(keyword)
+        j = 0
         for i in range(ciphert_nr):
             if ciphertext[i] in alphabet_lower:
                 raise Exception("Ciphertext can't contain non-alphabetic characters")
             elif ciphertext[i] in alphabet_upper:
                 plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) -
-                                                 alphabet_upper.index(keyword[i % key_nr])) % 26])
+                                                 alphabet_upper.index(keyword[j % key_nr])) % 26])
+                j += 1
             else:  # non-alphabetic characters
-                raise Exception("Ciphertext can't contain non-alphabetic characters")
+                plaintext.append(ciphertext[i])
 
     return "".join(plaintext)
 
+
+def codebreak_vigenere(ciphertext, possible_keys):
+    final_plaintext = []
+    key_error = []
+    non_alphabetic_chars = string.punctuation.replace("'", "")
+
+    if path.exists("words_upper") is False:
+        with open('words', 'r') as fin:
+            text = fin.read()
+
+            lines = [text.upper() for line in 'words']
+            with open('words_upper', 'w') as fout:
+                fout.writelines(lines)
+            fin.close()
+            fout.close()
+
+    best_key = ""
+    max_found_words = -1
+
+    for key in possible_keys:
+        nr_english_words = 0
+
+        plaintext = decrypt_vigenere(ciphertext, key)
+        for word in plaintext.split(" "):
+            new_word = word.strip(non_alphabetic_chars)
+
+            with open('words_upper', 'r') as f:
+                if new_word in f.read():
+                    nr_english_words += 1
+            f.close()
+
+        if nr_english_words > max_found_words:
+            best_key = key
+            max_found_words = nr_english_words
+
+    return decrypt_vigenere(ciphertext, best_key)
 
 ########################################
 # MERKLE-HELLMAN KNAPSACK CRYPTOSYSTEM #
