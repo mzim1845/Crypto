@@ -8,12 +8,12 @@ Replace this placeholder text with a description of this module.
 import string
 import random
 import utils
-import os.path
 from os import path
 
 #################
 # CAESAR CIPHER #
 #################
+
 
 def encrypt_caesar(plaintext):
     """Encrypt a plaintext using a Caesar cipher.
@@ -75,31 +75,21 @@ def decrypt_caesar(ciphertext):
     return "".join(plaintext)
 
 
-def encrypt_binary_file_caesar(filename):
+def encrypt_binary_file_caesar(file_bytes):
+    byte_array = []
+    for byte in file_bytes:
+        byte_array.append((byte+3) % 256)
 
-    barray = []
-    with open(filename, "rb") as fin:
-        with open("encrypted_"+filename, "wb") as fout:
-            byte = fin.read(1)
-            while byte:
-                barray.append((byte[0]+3)%256)
-                byte = fin.read(1)
-            fout.write(bytearray(barray))
-    fin.close()
-    fout.close()
+    return bytearray(byte_array)
 
 
-def decrypt_binary_file_caesar(filename):
-    barray = []
-    with open(filename, "rb") as fin:
-        with open("decrypted_" + filename, "wb") as fout:
-            byte = fin.read(1)
-            while byte:
-                barray.append((byte[0] - 3) % 256)
-                byte = fin.read(1)
-            fout.write(bytearray(barray))
-    fin.close()
-    fout.close()
+def decrypt_binary_file_caesar(file_bytes):
+    byte_array = []
+    for byte in file_bytes:
+        byte_array.append((byte - 3) % 256)
+
+    return bytearray(byte_array)
+
 
 ###################
 # VIGENERE CIPHER #
@@ -144,7 +134,7 @@ def encrypt_vigenere(plaintext, keyword):
                 ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) +
                                                   alphabet_upper.index(keyword[i % key_nr])) % 26])
             else:  # non-alphabetic characters
-                ciphertext.append(plaintext[i])
+                raise Exception("Plaintext can't contain non-alphabetic characters")
 
     return "".join(ciphertext)
 
@@ -189,25 +179,21 @@ def decrypt_vigenere(ciphertext, keyword):
                                                  alphabet_upper.index(keyword[j % key_nr])) % 26])
                 j += 1
             else:  # non-alphabetic characters
-                plaintext.append(ciphertext[i])
+                raise Exception("Ciphertext can't contain non-alphabetic characters")
 
     return "".join(plaintext)
 
 
 def codebreak_vigenere(ciphertext, possible_keys):
-    final_plaintext = []
-    key_error = []
     non_alphabetic_chars = string.punctuation.replace("'", "")
 
     if path.exists("words_upper") is False:
-        with open('words', 'r') as fin:
-            text = fin.read()
-
-            lines = [text.upper() for line in 'words']
-            with open('words_upper', 'w') as fout:
-                fout.writelines(lines)
-            fin.close()
-            fout.close()
+        # with open('words', 'r') as fin:
+        # text = fin.read()
+        lines = [line.upper() for line in 'words']
+        with open('words_upper', 'w') as file_out:
+            file_out.writelines(lines)
+        file_out.close()
 
     best_key = ""
     max_found_words = -1
@@ -229,6 +215,7 @@ def codebreak_vigenere(ciphertext, possible_keys):
             max_found_words = nr_english_words
 
     return decrypt_vigenere(ciphertext, best_key)
+
 
 ########################################
 # MERKLE-HELLMAN KNAPSACK CRYPTOSYSTEM #
@@ -391,6 +378,9 @@ def encrypt_scytale(plaintext, circumference):
     ciphertext = []
     nr_char = len(plaintext)
 
+    if plaintext == "":
+        return ""
+
     for i in range(circumference): # row indices
         j = i
         while j < nr_char:  # column
@@ -428,14 +418,24 @@ def encrypt_railfence(plaintext, num_rails):
     ciphertext = []
     char_nr = len(plaintext)
     n = num_rails * 2 - 2  # step between the numbers of the first row
-    i = n  # step (decreasing each time with 2)
-    k = 0  # row index
+    k = 1  # row index
 
+    j = 0  # first row
+    while j < char_nr:
+        ciphertext.append(plaintext[j])
+        j += n
+
+    i = n - 2  # step (decreasing each time with 2)
     while i > 0:  # looping from first row to last but one
         j = k
+        switch = 0
         while j < char_nr:
-            ciphertext.append(plaintext[j])
-            j += i
+            if switch == 0:
+                j += i
+                switch = 1
+            else:
+                j += (n - i)
+                switch = 0
         k += 1
         i -= 2
 
@@ -449,22 +449,34 @@ def encrypt_railfence(plaintext, num_rails):
 
 def decrypt_railfence(ciphertext, num_rails):
     char_nr = len(ciphertext)
-    plaintext = [0] * char_nr
+    plaintext = ['0'] * char_nr
     n = num_rails * 2 - 2  # step between the numbers of the first row
-    i = n  # step (decreasing each time with 2)
     k = 0  # row index
-    m = 0  # index for plaintext
 
+    j = 0  # first row
+    while j < char_nr:
+        plaintext[j] = ciphertext[k]
+        j += n
+        k += 1
+
+    m = 1
+    i = n - 2  # step (decreasing each time with 2)
     while i > 0:  # looping from first row to last but one
         j = m
+        switch = 0
         while j < char_nr:
             plaintext[j] = ciphertext[k]
-            j += i
+            if switch == 0:
+                j += i
+                switch = 1
+            else:
+                j += (n - i)
+                switch = 0
             k += 1
         m += 1
         i -= 2
 
-    j = num_rails - 1  # last row
+    j = (n-1)//2 + 1  # last row
     while j < char_nr:  # step is the same as in the first one
         plaintext[j] = ciphertext[k]
         j += n

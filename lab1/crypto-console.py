@@ -8,12 +8,15 @@ If you are a student, you shouldn't need to manually change this file, although
 you are free to tinker with it as you wish.
 """
 import random
+import os.path
+from os import path
 
 from crypto import (encrypt_caesar, decrypt_caesar,
                     encrypt_vigenere, decrypt_vigenere,
                     encrypt_railfence, decrypt_railfence,
                     encrypt_scytale, decrypt_scytale,
                     codebreak_vigenere,
+                    encrypt_binary_file_caesar, decrypt_binary_file_caesar,
                     generate_private_key, create_public_key,
                     encrypt_mh, decrypt_mh)
 
@@ -35,7 +38,7 @@ HEADER = r"""
 def get_cryptosystem():
     """Ask the user which cryptosystem to use. Always returns a letter in `"CVRS"`."""
     print("* Cryptosystem *")
-    return _get_selection("(C)aesar, (V)igenere or (R)ailfence or (S)cytale? ", "CVRS")
+    return _get_selection("(C)aesar, (B)inary Caesar, (V)igenere or (R)ailfence or (S)cytale? ", "CBVRS")
 
 
 def get_action():
@@ -58,6 +61,7 @@ def get_filename():
 def get_input(binary=False):
     """Prompt the user for input data, optionally read as bytes."""
     print("* Input *")
+
     choice = _get_selection("(F)ile or (S)tring? ", "FS")
     if choice == 'S':
         text = input("Enter a string: ").strip().upper()
@@ -158,6 +162,15 @@ def run_caesar(encrypting, data):
     return (encrypt_caesar if encrypting else decrypt_caesar)(data)
 
 
+def run_caesar_binary(encrypting, data):
+    """Run the Caesar binary file cipher cryptosystem."""
+
+    print("* Transform *")
+    print("{}crypting {} using Caesar binary file cipher...".format('En' if encrypting else 'De', data))
+
+    return (encrypt_binary_file_caesar if encrypting else decrypt_binary_file_caesar)(data)
+
+
 def run_vigenere(encrypting, data):
     """Run the Vigenere cipher cryptosystem."""
     data = clean_vigenere(data)
@@ -250,7 +263,7 @@ def run_suite():
     system = get_cryptosystem()
     action = get_action()
     encrypting = action == 'E'
-    if system == 'M' and encrypting:
+    if system == 'B':
         data = get_input(binary=True)
     else:
         data = get_input(binary=False)
@@ -260,13 +273,17 @@ def run_suite():
     # thought it was too cool to not sneak in here!
     commands = {
         'C': run_caesar,         # Caesar Cipher
+        'B': run_caesar_binary,  # Caesar Cipher Binary
         'V': run_vigenere,       # Vigenere Cipher
         'R': run_railfence,      # Railfence Cipher
         'S': run_scytale,        #Scytale Cipher
         'I': run_intelligent_codebreaker  #Intelligent Codebreaker
     }
     output = commands[system](encrypting, data)
-    set_output(output)
+    if system == 'B':
+        set_output(output, True)
+    else:
+        set_output(output)
 
 
 def main():
