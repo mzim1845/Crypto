@@ -30,8 +30,8 @@ def encrypt_caesar(plaintext):
     alphabet_lower = string.ascii_lowercase
 
     ciphertext = []
-    if plaintext == "":
-        return ""
+    if plaintext == '':
+        return ''
     else:
         plaint_nr = len(plaintext)
         for i in range(plaint_nr):
@@ -42,7 +42,7 @@ def encrypt_caesar(plaintext):
             else:  # non-alphabetic characters
                 ciphertext.append(plaintext[i])
 
-    return "".join(ciphertext)
+    return ''.join(ciphertext)
 
 
 def decrypt_caesar(ciphertext):
@@ -60,8 +60,8 @@ def decrypt_caesar(ciphertext):
     alphabet_lower = string.ascii_lowercase
 
     plaintext = []
-    if ciphertext == "":
-        return ""
+    if ciphertext == '':
+        return ''
     else:
         ciphert_nr = len(ciphertext)
         for i in range(ciphert_nr):
@@ -72,7 +72,7 @@ def decrypt_caesar(ciphertext):
             else:  # non-alphabetic characters
                 plaintext.append(ciphertext[i])
 
-    return "".join(plaintext)
+    return ''.join(plaintext)
 
 
 def encrypt_binary_file_caesar(file_bytes):
@@ -113,30 +113,30 @@ def encrypt_vigenere(plaintext, keyword):
     alphabet_lower = string.ascii_lowercase
 
     if len(keyword) == 0:
-        raise Exception("Keyword can't be an empty string")
+        raise Exception('Keyword can\'t be an empty string')
     else:
         for letter in keyword:
             if letter in alphabet_lower:
-                raise Exception("Keyword can't contain lowercase characters")
+                raise Exception('Keyword can\'t contain lowercase characters')
             elif letter not in alphabet_upper:
-                raise Exception("Keyword can't contain non-alphabetic characters")
+                raise Exception('Keyword can\'t contain non-alphabetic characters')
 
     ciphertext = []
-    if plaintext == "":
-        return ""
+    if plaintext == '':
+        return ''
     else:
         plaint_nr = len(plaintext)
         key_nr = len(keyword)
         for i in range(plaint_nr):
             if plaintext[i] in alphabet_lower:
-                raise Exception("Plaintext can't contain lowercase characters")
+                raise Exception('Plaintext can\'t contain lowercase characters')
             elif plaintext[i] in alphabet_upper:
                 ciphertext.append(alphabet_upper[(alphabet_upper.index(plaintext[i]) +
                                                   alphabet_upper.index(keyword[i % key_nr])) % 26])
             else:  # non-alphabetic characters
-                raise Exception("Plaintext can't contain non-alphabetic characters")
+                raise Exception('Plaintext can\'t contain non-alphabetic characters')
 
-    return "".join(ciphertext)
+    return ''.join(ciphertext)
 
 
 def decrypt_vigenere(ciphertext, keyword):
@@ -156,64 +156,70 @@ def decrypt_vigenere(ciphertext, keyword):
     alphabet_lower = string.ascii_lowercase
 
     if len(keyword) == 0:
-        raise Exception("Keyword can't be an empty string")
+        raise Exception('Keyword can\'t be an empty string')
     else:
         for letter in keyword:
             if letter in alphabet_lower:
-                raise Exception("Keyword can't contain lowercase characters")
+                raise Exception('Keyword can\'t contain lowercase characters')
             elif letter not in alphabet_upper:
-                raise Exception("Keyword can't contain non-alphabetic characters")
+                raise Exception('Keyword can\'t contain non-alphabetic characters')
 
     plaintext = []
-    if ciphertext == "":
-        return ""
+    if ciphertext == '':
+        return ''
     else:
         ciphert_nr = len(ciphertext)
         key_nr = len(keyword)
         j = 0
         for i in range(ciphert_nr):
             if ciphertext[i] in alphabet_lower:
-                raise Exception("Ciphertext can't contain non-alphabetic characters")
+                raise Exception('Ciphertext can\'t contain non-alphabetic characters')
             elif ciphertext[i] in alphabet_upper:
                 plaintext.append(alphabet_upper[(alphabet_upper.index(ciphertext[i]) -
                                                  alphabet_upper.index(keyword[j % key_nr])) % 26])
                 j += 1
             else:  # non-alphabetic characters
-                raise Exception("Ciphertext can't contain non-alphabetic characters")
+                # raise Exception("Ciphertext can't contain non-alphabetic characters")
+                plaintext.append(ciphertext[i])
 
-    return "".join(plaintext)
+    return ''.join(plaintext)
 
 
-def codebreak_vigenere(ciphertext, possible_keys):
-    non_alphabetic_chars = string.punctuation.replace("'", "")
+def codebreak_vigenere(ciphertext):
+    non_alphabetic_chars = string.punctuation.replace("'", '')
 
-    if path.exists("words_upper") is False:
-        # with open('words', 'r') as fin:
-        # text = fin.read()
-        lines = [line.upper() for line in 'words']
-        with open('words_upper', 'w') as file_out:
-            file_out.writelines(lines)
-        file_out.close()
+    with open('words_upper', 'r') as fin:
+        text = fin.read()
+        english_words = text.upper().splitlines()
+        # with open('words_upper', 'w') as fout:
+        #     for word in english_words:
+        #         if "'" not in word:
+        #             ok = True
+        #             for letter in word:
+        #                 if letter not in string.ascii_uppercase:
+        #                     ok = False
+        #             if ok:
+        #                 fout.write(word)
+        #                 fout.write('\n')
+        fin.close()
 
-    best_key = ""
+    best_key = ''
     max_found_words = -1
-
-    for key in possible_keys:
+    for key in english_words:
         nr_english_words = 0
 
         plaintext = decrypt_vigenere(ciphertext, key)
         for word in plaintext.split(" "):
             new_word = word.strip(non_alphabetic_chars)
-
-            with open('words_upper', 'r') as f:
-                if new_word in f.read():
-                    nr_english_words += 1
-            f.close()
+            if new_word in english_words:
+                nr_english_words += 1
 
         if nr_english_words > max_found_words:
+            print(key, nr_english_words)
             best_key = key
             max_found_words = nr_english_words
 
+    print(best_key)
     return decrypt_vigenere(ciphertext, best_key)
 
 
@@ -371,15 +377,15 @@ def decrypt_mh(message, private_key):
         alpha.reverse()
         plaintext.append(chr(utils.bits_to_byte(alpha)))
 
-    return "".join(plaintext)
+    return ''.join(plaintext)
 
 
 def encrypt_scytale(plaintext, circumference):
     ciphertext = []
     nr_char = len(plaintext)
 
-    if plaintext == "":
-        return ""
+    if plaintext == '':
+        return ''
 
     for i in range(circumference): # row indices
         j = i
@@ -387,7 +393,7 @@ def encrypt_scytale(plaintext, circumference):
             ciphertext.append(plaintext[j])
             j += circumference
 
-    return "".join(ciphertext)
+    return ''.join(ciphertext)
 
 
 def decrypt_scytale(ciphertext, circumference):
@@ -411,7 +417,7 @@ def decrypt_scytale(ciphertext, circumference):
             else:
                 j += q
 
-    return "".join(plaintext)
+    return ''.join(plaintext)
 
 
 def encrypt_railfence(plaintext, num_rails):
@@ -444,7 +450,7 @@ def encrypt_railfence(plaintext, num_rails):
         ciphertext.append(plaintext[j])
         j += n
 
-    return "".join(ciphertext)
+    return ''.join(ciphertext)
 
 
 def decrypt_railfence(ciphertext, num_rails):
@@ -482,4 +488,4 @@ def decrypt_railfence(ciphertext, num_rails):
         j += n
         k += 1
 
-    return "".join(plaintext)
+    return ''.join(plaintext)
