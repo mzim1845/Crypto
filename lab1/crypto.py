@@ -203,6 +203,7 @@ def codebreak_vigenere(ciphertext):
         #                 fout.write('\n')
         fin.close()
 
+    possible_keys = []
     best_key = ''
     max_found_words = -1
     for key in english_words:
@@ -214,12 +215,15 @@ def codebreak_vigenere(ciphertext):
             if new_word in english_words:
                 nr_english_words += 1
 
-        if nr_english_words > max_found_words:
-            print(key, nr_english_words)
+        if nr_english_words == max_found_words:
+            possible_keys.append(key)
+        else:
+            possible_keys.clear()
             best_key = key
+            possible_keys.append(key)
             max_found_words = nr_english_words
 
-    print(best_key)
+    print(possible_keys)
     return decrypt_vigenere(ciphertext, best_key)
 
 
