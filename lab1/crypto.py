@@ -217,7 +217,7 @@ def codebreak_vigenere(ciphertext):
 
         if nr_english_words == max_found_words:
             possible_keys.append(key)
-        else:
+        elif nr_english_words > max_found_words:
             possible_keys.clear()
             best_key = key
             possible_keys.append(key)
