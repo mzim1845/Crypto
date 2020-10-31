@@ -7,18 +7,13 @@ simply provides a harness to interact with the ciphers.
 If you are a student, you shouldn't need to manually change this file, although
 you are free to tinker with it as you wish.
 """
-import random
-import os.path
-from os import path
 
 from crypto import (encrypt_caesar, decrypt_caesar,
                     encrypt_vigenere, decrypt_vigenere,
                     encrypt_railfence, decrypt_railfence,
                     encrypt_scytale, decrypt_scytale,
                     codebreak_vigenere,
-                    encrypt_binary_file_caesar, decrypt_binary_file_caesar,
-                    generate_private_key, create_public_key,
-                    encrypt_mh, decrypt_mh)
+                    encrypt_binary_file_caesar, decrypt_binary_file_caesar)
 
 HEADER = r"""
    ___________ __ __ ___   ______                 __                               __             ______                       __
@@ -38,7 +33,7 @@ HEADER = r"""
 def get_cryptosystem():
     """Ask the user which cryptosystem to use. Always returns a letter in `"CVRS"`."""
     print("* Cryptosystem *")
-    return _get_selection("(C)aesar, (B)inary Caesar, (V)igenere or (R)ailfence or (S)cytale? ", "CBVRS")
+    return _get_selection("(C)aesar, (B)inary Caesar, (V)igenere, (I)ntelligent Codebreaker or (R)ailfence or (S)cytale? ", "CBVIRS")
 
 
 def get_action():
@@ -62,7 +57,11 @@ def get_input(binary=False):
     """Prompt the user for input data, optionally read as bytes."""
     print("* Input *")
 
-    choice = _get_selection("(F)ile or (S)tring? ", "FS")
+    if binary:
+        choice = 'F'
+    else:
+        choice = _get_selection("(F)ile or (S)tring? ", "FS")
+
     if choice == 'S':
         text = input("Enter a string: ").strip().upper()
         while not text:
@@ -82,7 +81,12 @@ def get_input(binary=False):
 def set_output(output, binary=False):
     """Write output to a user-specified location."""
     print("* Output *")
-    choice = _get_selection("(F)ile or (S)tring? ", "FS")
+
+    if binary:
+        choice = 'F'
+    else:
+        choice = _get_selection("(F)ile or (S)tring? ", "FS")
+
     if choice == 'S':
         print(output)
     else:
@@ -128,24 +132,32 @@ def clean_vigenere(text):
     return ''.join(ch for ch in text.upper() if ch.isupper())
 
 
+def clean_intelligent_codebreaker(text):
+    """Convert text to a form compatible with the preconditions imposed by Vigenere cipher."""
+
+    return text.upper()
+
+
 def clean_railfence_text(text):
-    """Convert text to a form compatible with the preconditions imposed by Caesar cipher."""
+    """Convert text to a form compatible with the preconditions imposed by Railfence cipher."""
     return text.upper()
 
 
 def clean_scytale_text(text):
-    """Convert text to a form compatible with the preconditions imposed by Caesar cipher."""
+    """Convert text to a form compatible with the preconditions imposed by Scytale cipher."""
     return text.upper()
 
+
 def clean_railfence_num_rails(num_rails):
-    """Convert text to a form compatible with the preconditions imposed by Caesar cipher."""
+    """Convert num_rails to a form compatible with the preconditions imposed by Railfence cipher."""
     for num in num_rails:
         if num not in "0123456789":
             return "-1"
     return num_rails
 
+
 def clean_scytale_circumference(circumference):
-    """Convert text to a form compatible with the preconditions imposed by Caesar cipher."""
+    """Convert circumference to a form compatible with the preconditions imposed by Scytale cipher."""
     for num in circumference:
         if num not in "0123456789":
             return "-1"
@@ -186,21 +198,22 @@ def run_vigenere(encrypting, data):
 
 
 def run_railfence(encrypting, data):
-    """Run the Vigenere cipher cryptosystem."""
+    """Run the Railfence cipher cryptosystem."""
     data = clean_railfence_text(data)
 
     print("* Transform *")
     num_rails = clean_railfence_num_rails(input("Number of rails? "))
     while not num_rails:
-        keyword = clean_railfence_num_rails(input("Number of rails? "))
+        num_rails = clean_railfence_num_rails(input("Number of rails? "))
 
-    print("{}crypting {} using Railfence cipher and number of rails {}...".format('En' if encrypting else 'De', data, num_rails))
+    print("{}crypting {} using Railfence cipher and number of rails {}..."
+          .format('En' if encrypting else 'De', data, num_rails))
 
     return (encrypt_railfence if encrypting else decrypt_railfence)(data, int(num_rails))
 
 
 def run_scytale(encrypting, data):
-    """Run the Vigenere cipher cryptosystem."""
+    """Run the Scytale cipher cryptosystem."""
     data = clean_scytale_text(data)
 
     print("* Transform *")
@@ -208,49 +221,22 @@ def run_scytale(encrypting, data):
     while not circumference:
         circumference = clean_scytale_circumference(input("Circumference? "))
 
-    print("{}crypting {} using Scytale cipher and circumference {}...".format('En' if encrypting else 'De', data, circumference))
+    print("{}crypting {} using Scytale cipher and circumference {}..."
+          .format('En' if encrypting else 'De', data, circumference))
 
     return (encrypt_scytale if encrypting else decrypt_scytale)(data, int(circumference))
 
 
-def run_merkle_hellman(encrypting, data):
-    """Run the Merkle-Hellman knapsack cryptosystem."""
-    action = get_action()
-
-    print("* Seed *")
-    seed = input("Set Seed [enter for random]: ")
-    if not seed:
-        random.seed()
-    else:
-        random.seed(seed)
-
-    print("* Building private key...")
-
-    private_key = generate_private_key()
-    public_key = create_public_key(private_key)
-
-    if encrypting:  # Encrypt
-        print("* Transform *")
-        chunks = encrypt_mh(data, public_key)
-        return ' '.join(map(str, chunks))
-    else:  # Decrypt
-        chunks = [int(line.strip()) for line in data.split() if line.strip()]
-        print("* Transform *")
-        return decrypt_mh(chunks, private_key)
-
-
-def run_intelligent_codebreaker(encrypting, data):
-    """Run the Vigenere cipher cryptosystem."""
-    data = clean_scytale_text(data)
+def run_intelligent_codebreaker(data):
+    """Run the Vigenere Intelligent Codebreaker cryptosystem."""
+    data = clean_intelligent_codebreaker(data)
 
     print("* Transform *")
-    circumference = clean_scytale_circumference(input("Circumference? "))
-    while not circumference:
-        circumference = clean_scytale_circumference(input("Circumference? "))
 
-    print("{}crypting {} using Scytale cipher and circumference {}...".format('En' if encrypting else 'De', data, circumference))
+    print("Decrypting {} using Intelligent Codebreaker cipher...", data)
 
-    return (encrypt_scytale if encrypting else decrypt_scytale)(data, int(circumference))
+    return codebreak_vigenere(data)
+
 
 def run_suite():
     """Run a single iteration of the cryptography suite.
@@ -261,13 +247,16 @@ def run_suite():
     """
     print('-' * 34)
     system = get_cryptosystem()
-    action = get_action()
-    encrypting = action == 'E'
+    if system != "I":
+        action = get_action()
+        encrypting = action == 'E'
+    else:
+        encrypting = "D"
+
     if system == 'B':
         data = get_input(binary=True)
     else:
         data = get_input(binary=False)
-
 
     # This isn't the cleanest way to implement functional control flow, but I
     # thought it was too cool to not sneak in here!
@@ -276,10 +265,15 @@ def run_suite():
         'B': run_caesar_binary,  # Caesar Cipher Binary
         'V': run_vigenere,       # Vigenere Cipher
         'R': run_railfence,      # Railfence Cipher
-        'S': run_scytale,        #Scytale Cipher
-        'I': run_intelligent_codebreaker  #Intelligent Codebreaker
+        'S': run_scytale,        # Scytale Cipher
+        'I': run_intelligent_codebreaker  # Intelligent Codebreaker
     }
-    output = commands[system](encrypting, data)
+
+    if system == 'I':
+        output = commands[system](data)
+    else:
+        output = commands[system](encrypting, data)
+
     if system == 'B':
         set_output(output, True)
     else:
