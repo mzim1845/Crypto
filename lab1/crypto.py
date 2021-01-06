@@ -201,7 +201,6 @@ def codebreak_vigenere(ciphertext):
         #             if ok:
         #                 fout.write(word)
         #                 fout.write('\n')
-        fin.close()
 
     possible_keys = []
     best_key = ''
