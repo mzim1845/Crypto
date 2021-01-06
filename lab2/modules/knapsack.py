@@ -1,5 +1,5 @@
 import random
-import utils
+from .utils2 import (is_superincreasing, coprime, byte_to_bits, bits_to_byte,  modinv)
 
 
 def generate_knapsack_key_pair():
@@ -35,13 +35,13 @@ def generate_private_key(n=8):
         total += rand_nr
         w_seq.append(rand_nr)
 
-    assert utils.is_superincreasing(w_seq), 'sequence is not superincreasing'
+    assert is_superincreasing(w_seq), 'sequence is not superincreasing'
     # 2.
     q = random.randint(total + 1, 2 * total)
 
     # 3.
     r = random.randint(2, q - 1)
-    while not utils.coprime(r, q):
+    while not coprime(r, q):
         r = random.randint(2, q)
 
     return (tuple(w_seq), q, r)
@@ -86,7 +86,7 @@ def encrypt_mh(message, public_key):
     ciphertext = []
     n = len(public_key)
     for character in message:
-        a = utils.byte_to_bits(character)
+        a = byte_to_bits(character)
         c = 0
         for i in range(n):
             c += a[i] * public_key[i]
@@ -117,11 +117,10 @@ def decrypt_mh(message, private_key):
     (w, q, r) = private_key
     w_seq = list(w)
     n = len(w_seq)
-    s = utils.modinv(r, q)
+    s = modinv(r, q)
 
     for chunk in message:
         c = chunk * s % q
-        print(c)
         alpha = [0] * len(w_seq)
         while c > 0:
             max_w_ind = 0
@@ -135,6 +134,6 @@ def decrypt_mh(message, private_key):
             c -= w_seq[max_w_ind]
             alpha[max_w_ind] = 1
 
-        plaintext.append(chr(utils.bits_to_byte(alpha)))
+        plaintext.append(chr(bits_to_byte(alpha)))
 
-    return plaintext
+    return ''.join(plaintext)

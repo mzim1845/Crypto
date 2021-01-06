@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e8b8b6a7-7f26-40b2-9698-08cac84cef5e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto-console.py" beforeDir="false" afterPath="$PROJECT_DIR$/crypto-console.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crypto.py" beforeDir="false" afterPath="$PROJECT_DIR$/crypto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/encrypted_images.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/mh-cipher.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/mh-plain.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/video.avi" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/crypto.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="225" column="66" selection-start-line="225" selection-start-column="66" selection-end-line="225" selection-end-column="66" />
+            <state relative-caret-position="323">
+              <caret line="187" column="23" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="23" />
               <folding>
                 <element signature="e#160#173#0" expanded="true" />
               </folding>
@@ -44,7 +37,7 @@
         <entry file="file://$PROJECT_DIR$/res/scytale-plain.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" column="15" lean-forward="true" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
             </state>
           </provider>
         </entry>
@@ -61,7 +54,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crypto-console.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-522">
+            <state relative-caret-position="3910">
               <caret line="230" column="47" selection-start-line="230" selection-start-column="47" selection-end-line="230" selection-end-column="47" />
             </state>
           </provider>
@@ -127,7 +120,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -144,6 +136,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -201,7 +194,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -248,9 +241,7 @@
     <entry file="file://$PROJECT_DIR$/words_upper">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/encrypted_images.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/encrypted_images.jpg" />
     <entry file="file://$PROJECT_DIR$/res/rail-plain.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -275,28 +266,20 @@
         <state relative-caret-position="-2102194" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/images.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/design.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/images.jpg" />
     <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1071" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/caesar-plain.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/scytale-plain.txt">
+    <entry file="file://$PROJECT_DIR$/not_a_secret_message_solved.txt" />
+    <entry file="file://$PROJECT_DIR$/crypto.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="15" lean-forward="true" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        <state relative-caret-position="323">
+          <caret line="187" column="23" selection-start-line="187" selection-start-column="4" selection-end-line="187" selection-end-column="23" />
+          <folding>
+            <element signature="e#160#173#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -307,25 +290,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/caesar-cipher.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/res/scytale-plain.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/design.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crypto-console.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-522">
+        <state relative-caret-position="3910">
           <caret line="230" column="47" selection-start-line="230" selection-start-column="47" selection-end-line="230" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crypto.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="225" column="66" selection-start-line="225" selection-start-column="66" selection-end-line="225" selection-end-column="66" />
-          <folding>
-            <element signature="e#160#173#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/res/caesar-cipher.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/caesar-plain.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

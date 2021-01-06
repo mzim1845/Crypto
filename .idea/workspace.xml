@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/lab1/crypto.py" line="461" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0982dffe-3710-4d49-96b6-88da74ad741d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lab2/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/modules/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/modules/solitaire.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/tests/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/tests/cipher_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lab2/tests/server_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab1/crypto.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab1/crypto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/client1.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/client2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/knapsack.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2/modules/knapsack.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lab2/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/lab2/modules/utils2.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab2/server.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="833">
+              <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-end-line="50" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lab2/client.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="337">
+              <caret line="169" column="47" selection-start-line="169" selection-start-column="47" selection-end-line="169" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lab2/tests/server_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>26</find>
+      <find>sum</find>
+      <find>&quot;</find>
+      <find>move_two_cards_down</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>25</replace>
+      <replace>total</replace>
+      <replace>'</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/lab1/crypto.py" />
+        <option value="$PROJECT_DIR$/lab2/peer-to-peer.py" />
+        <option value="$PROJECT_DIR$/lab2/utils.py" />
+        <option value="$PROJECT_DIR$/lab2/knapsack.py" />
+        <option value="$PROJECT_DIR$/lab2/client2.py" />
+        <option value="$PROJECT_DIR$/lab2/client1.py" />
+        <option value="$PROJECT_DIR$/lab2/tests/knapsack_test.py" />
+        <option value="$PROJECT_DIR$/lab2/tests/plaintext1.txt" />
+        <option value="$PROJECT_DIR$/lab2/tests/resources/plaintext1.txt" />
+        <option value="$PROJECT_DIR$/lab2/tests/resources/plaintext2.txt" />
+        <option value="$PROJECT_DIR$/lab2/cryptosystem/client1.py" />
+        <option value="$PROJECT_DIR$/lab2/cryptosystem/server.py" />
+        <option value="$PROJECT_DIR$/lab2/cryptosystem/client.py" />
+        <option value="$PROJECT_DIR$/lab2/modules/__init__.py" />
+        <option value="$PROJECT_DIR$/lab2/modules/knapsack.py" />
+        <option value="$PROJECT_DIR$/lab2/modules/solitaire.py" />
+        <option value="$PROJECT_DIR$/lab2/tests/cipher_test.py" />
+        <option value="$PROJECT_DIR$/lab2/server.py" />
+        <option value="$PROJECT_DIR$/lab2/tests/server_test.py" />
+        <option value="$PROJECT_DIR$/lab2/client.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/Crypto.iml" />
+        <option value="$PROJECT_DIR$/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/misc.xml" />
+        <option value="$PROJECT_DIR$/.idea/dictionaries/user.xml" />
+        <option value="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="490" />
+    <option name="y" value="111" />
+    <option name="width" value="785" />
+    <option name="height" value="710" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+              <item name="lab1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+              <item name="lab1" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+              <item name="lab2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+              <item name="lab2" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Crypto" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Crypto" type="462c0819:PsiDirectoryNode" />
+              <item name="lab2" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Lab2" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2" />
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2\cryptosystem" />
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2\tests\resources" />
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2\tests" />
+      <recent name="D:\Egyetem\Kripto\Crypto\lab2\modules" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.server">
+    <configuration name="client (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Crypto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lab2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab2/client.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Crypto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lab2" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lab2/server.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Crypto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;lab2.tests.cipher_test.Ciphertest&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Crypto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;lab2.tests.cipher_test.Ciphertest.test_solitaire&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in cipher_test.py" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="Crypto" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/lab2/tests/cipher_test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.server" />
+        <item itemvalue="Python tests.Unittests for lab2.tests.cipher_test.Ciphertest" />
+        <item itemvalue="Python tests.Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" />
+        <item itemvalue="Python.client (2)" />
+        <item itemvalue="Python tests.Unittests in cipher_test.py" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0982dffe-3710-4d49-96b6-88da74ad741d" name="Default Changelist" comment="" />
+      <created>1602168137398</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602168137398</updated>
+    </task>
+    <task id="LOCAL-00001" summary="caesar">
+      <created>1602181669577</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1602181669578</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Vignere, Mh, Scytale, Railfence">
+      <created>1602337116566</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1602337116566</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Vignere, Mh, Scytale, Railfence">
+      <created>1602346963435</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1602346963435</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 12m 56s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 13m 30s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 13m 56s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 14m 01s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 14m 16s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 14m 53s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 15m 06s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 15m 57s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest_test_solitaire - 2021.01.06 at 10h 16m 02s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest.test_solitaire" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_for_lab2_tests_cipher_test_Ciphertest - 2021.01.06 at 10h 16m 14s.xml">
+      <configuration name="Unittests for lab2.tests.cipher_test.Ciphertest" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960254" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.2756632" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39907727" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3298731" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3298731" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29757786" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.2814302" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="caesar" />
+    <MESSAGE value="Vignere, Mh, Scytale, Railfence" />
+    <option name="LAST_COMMIT_MESSAGE" value="Vignere, Mh, Scytale, Railfence" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lab1/exit" />
+    <entry file="file://$PROJECT_DIR$/lab1/res/mh-cipher.txt" />
+    <entry file="file://$PROJECT_DIR$/lab1/res/mh-plain.txt" />
+    <entry file="file://$PROJECT_DIR$/lab1/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="103" selection-start-line="103" selection-end-line="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/tests/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/tests/resources/plaintext2.txt" />
+    <entry file="file://$PROJECT_DIR$/lab2/tests/resources/plaintext1.txt" />
+    <entry file="file://$PROJECT_DIR$/lab2/cryptosystem/client2.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python39/Lib/site-packages/qrng/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/modules/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/modules/utils2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-799">
+          <caret line="19" column="76" lean-forward="true" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/modules/knapsack.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="78" selection-start-line="1" selection-start-column="78" selection-end-line="1" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/modules/solitaire.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab1/crypto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="58" column="43" lean-forward="true" selection-start-line="58" selection-start-column="4" selection-end-line="58" selection-end-column="43" />
+          <folding>
+            <element signature="e#160#173#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/tests/cipher_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="47" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/tests/server_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-end-line="50" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lab2/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="169" column="47" selection-start-line="169" selection-start-column="47" selection-end-line="169" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
