@@ -16,164 +16,177 @@ def initialize_logger():
     logger.addHandler(handler)
 
 
+def request_port(request_question):
+    while True:
+        try:
+            client_input = input(request_question)
+            if client_input == 'exit()':
+                exit()
+            else:
+                port = int(client_input)
+                if port < 1024 or port > 49151:
+                    print('Port must be a number between 1024 and 49151')
+                else:
+                    break
+        except ValueError:
+            print('Port must be a number between 1024 and 49151')
+
+    return port
+
+
 class Client:
 
-    @staticmethod
-    def bind_to_port(client, port):
+    def __init__(self, port):
+        self.port = port
+        # generating knapsack keys
+        (self.private_key, self.public_key) = knapsack.generate_knapsack_key_pair()
+
+        # register to server
+        self.client_to_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        if not self.bind_to_port(8080, self.client_to_server):
+            exit()
+        data_string = pickle.dumps([port, self.public_key])
+        logging.info('Client ' + str(port) + ': ' + str(self.private_key) + ' ' + str(self.public_key) + ' keys')
+        self.client_to_server.send(data_string)
+
+    def bind_to_port(self, port, csocket):
         try:
-            client.connect(('127.0.0.1', port))
+            csocket.connect(('127.0.0.1', port))
             return True
         except ConnectionRefusedError:
             print('Couldn\'t connect')
             return False
 
-    @staticmethod
-    def request_port(request_question):
-        while True:
-            try:
-                client_input = input(request_question)
-                if client_input == 'exit()':
-                    exit()
-                else:
-                    port = int(client_input)
-                    if port < 1024 or port > 49151:
-                        print('Port must be a number between 1024 and 49151')
-                    else:
-                        break
-            except ValueError:
-                print('Port must be a number between 1024 and 49151')
+    def request_public_key(self, partner_port):
+        self.client_to_server.send(str(partner_port).encode())
+        from_server = self.client_to_server.recv(2048).decode()
+        if from_server == 'NOT FOUND':
+            print('Searched client is not registered')
+        else:
+            print('Searched client is registered: ' + str(from_server))
+            return eval(from_server)
 
-        return port
-
-    @staticmethod
-    def request_public_key(client_to_server, partner_port):
-        try:
-            client_to_server.send(str(partner_port).encode())
-            from_server = client_to_server.recv(2048).decode()
-            if from_server == 'NOT FOUND':
-                print('Searched client is not registered')
-            else:
-                print('Searched client is registered: ' + str(from_server))
-                return pickle.loads(from_server)
-        except ConnectionResetError:
-            print('Server stopped')
-            client_to_server.close()
-            exit()
-
-    @staticmethod
-    def wait_for_hello(client_port, private_key):
+    def wait_for_hello(self):
         client_to_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_to_client.bind(('127.0.0.1', client_port))
+        client_to_client.bind(('127.0.0.1', self.port))
         client_to_client.listen(5)
 
-        logging.info('Client ' + str(client_port) + ': waiting for HELLO')
+        logging.info('Client ' + str(self.port) + ': waiting for HELLO')
 
         connection, address = client_to_client.accept()
         from_client = connection.recv(2048)
-        decrypted_message = knapsack.decrypt_mh(from_client.decode(), private_key).split()
-        logging.info('Client ' + str(client_port) + ': ' + 'received message is ' + decrypted_message)
-        if decrypted_message == 'HELLO ' and len(decrypted_message) == 2:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message says HELLO' + decrypted_message[1])
+        decrypted_message = knapsack.decrypt_mh(eval(from_client.decode()), self.private_key).split()
+        if decrypted_message[0] == 'HELLO' and len(decrypted_message) == 2:
+            logging.info('Client ' + str(self.port) + ': ' + 'received message says HELLO' + decrypted_message[1])
+            client_to_client.close()
             return decrypted_message[1]
         else:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message doesn\'t say HELLO')
+            logging.info('Client ' + str(self.port) + ': ' + 'received message doesn\'t say HELLO')
+            client_to_client.close()
             return ''
 
-    @staticmethod
-    def wait_for_ack(client_port, partner_port, private_key):
+    def wait_for_ack(self, partner_port):
         client_to_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_to_client.bind(('127.0.0.1', client_port))
+        client_to_client.bind(('127.0.0.1', self.port))
         client_to_client.listen(5)
 
-        logging.info('Client ' + str(client_port) + ': ' + 'waiting for ACK from' + str(partner_port))
+        logging.info('Client ' + str(self.port) + ': ' + 'waiting for ACK from ' + str(partner_port))
 
         connection, address = client_to_client.accept()
         from_client = connection.recv(2048)
-        decrypted_message = knapsack.decrypt_mh(from_client.decode(), private_key)
-        logging.info('Client ' + str(client_port) + ': ' + 'received message is ' + decrypted_message)
-        if decrypted_message == 'ACK ' + partner_port:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message says ' + decrypted_message)
-            return True
+        if from_client:
+            decrypted_message = knapsack.decrypt_mh(eval(from_client.decode()), self.private_key)
+            if decrypted_message == 'ACK ' + str(partner_port):
+                logging.info('Client ' + str(self.port) + ': ' + 'received message says ' + decrypted_message)
+                client_to_client.close()
+                return True
+            else:
+                logging.info('Client ' + str(self.port) + ': ' + 'received message doesn\'t say ACK ' + partner_port)
+                client_to_client.close()
+                return False
         else:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message doesn\'t say ACK' + partner_port)
+            print('Connection error')
+            client_to_client.close()
             return False
 
-    @staticmethod
-    def wait_for_half_secret_key(client_port, private_key):
+    def wait_for_half_secret_key(self):
         client_to_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client_to_client.bind(('127.0.0.1', client_port))
+        client_to_client.bind(('127.0.0.1', self.port))
         client_to_client.listen(5)
 
-        logging.info('Client ' + str(client_port) + ': ' + 'waiting for SECRET from' + str(client_port))
+        logging.info('Client ' + str(self.port) + ': ' + 'waiting for SECRET from partner')
 
         connection, address = client_to_client.accept()
         from_client = connection.recv(2048)
-        decrypted_message = knapsack.decrypt_mh(from_client.decode(), private_key).split()
-        logging.info('Client ' + str(client_port) + ': ' + 'received message is ' + decrypted_message)
+        decrypted_message = knapsack.decrypt_mh(eval(from_client.decode()), self.private_key).split()
         if decrypted_message[0] == 'SECRET' and len(decrypted_message) == 2:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message says SECRET' + decrypted_message[1])
+            logging.info('Client ' + str(self.port) + ': ' + 'received message says SECRET ' + decrypted_message[1])
             return decrypted_message[1]
         else:
-            logging.info('Client ' + str(client_port) + ': ' + 'received message doesn\'t contain half secret key')
+            logging.info('Client ' + str(self.port) + ': ' + 'received message doesn\'t contain half secret key')
             return ''
 
-    @staticmethod
     def send_specific_message(self, partner_port, partner_pub_key, message):
-
         client_to_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        if not self.bind_to_port(client_to_client, partner_port):
+        if not self.bind_to_port(partner_port, client_to_client):
             return
-        client_to_client.send(knapsack.encrypt_mh(message, partner_pub_key))
+        client_to_client.send(str(knapsack.encrypt_mh(message.encode(), partner_pub_key)).encode())
         client_to_client.close()
+
+    def close(self):
+        self.client_to_server.close()
 
 
 def main():
     initialize_logger()
 
-    client = Client()
     logging.info('Client started')
     print('>>>Type exit() to end your process<<<')
-    client_port = client.request_port('What is your port number?\n')
-
-    # generating knapsack keys
-    (private_key, public_key) = knapsack.generate_knapsack_key_pair()
-
-    # register to server
-    client_to_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    if not client.bind_to_port(client_to_server, 8080):
-        exit()
-    data_string = pickle.dumps([client_port, public_key])
-    logging.info('Client ' + str(client_port) + ': ' + str(private_key) + ' ' + str(public_key) + ' keys')
-    client_to_server.send(data_string)
+    port = request_port('What is your port number?\n')
+    client = Client(port)
 
 
     # console-based communication with the client
     while True:
         answer = input('Do you want to send or receive message?(send/receive)\n')
 
-        if answer == 'send':
-            partner_port = client.request_port('Which client do you want to get in touch with?\n')
-            partner_public_key = client.request_public_key(client_to_server, partner_port)
-            logging.info('Client ' + str(client_port) + ': received partner\'s public key'
-                                 + str(partner_public_key))
+        try:
+            if answer == 'send':
+                partner_port = request_port('Which client do you want to get in touch with?\n')
+                partner_public_key = client.request_public_key(partner_port)
 
-            logging.info('Client ' + str(client_port) + ': sending HELLO')
-            client.send_specific_message(client, partner_port, partner_public_key, 'HELLO ' + str(client_port))
-            client.wait_for_ack(client_port, partner_port, private_key)
-            half_secret_key1 = solitaire.generate_random_secret()
-            client.send_specific_message(client, client_port, private_key, 'SECRET ' + half_secret_key1)
-            half_secret_key2 = client.wait_for_half_secret_key(client_port, private_key)
-            common_secret_key = solitaire.generate_common_secret(half_secret_key1, half_secret_key2)
+                if partner_public_key:
+                    logging.info('Client ' + str(port) + ': sending HELLO')
+                    try:
+                        client.send_specific_message(partner_port, partner_public_key, 'HELLO ' + str(port))
+                        if client.wait_for_ack(partner_port):
+                            half_secret_key1 = solitaire.generate_random_secret()
+                            client.send_specific_message(partner_port, partner_public_key, 'SECRET ' + half_secret_key1)
+                            half_secret_key2 = client.wait_for_half_secret_key()
+                            common_secret_key = solitaire.generate_common_secret(half_secret_key1, half_secret_key2)
+                    except ConnectionResetError:
+                        print('Connection error')
 
-        elif answer == 'receive':
-            logging.info('Client ' + str(client_port) + ': waiting for HELLO')
-            partner_port = client.wait_for_hello(client_port, private_key)
-            partner_public_key = client.request_public_key(client_to_server, partner_port)
-            client.send_specific_message(client, partner_port, partner_public_key, 'ACK ' + str(client_port))
-            half_secret_key2 = client.wait_for_half_secret_key(client_port, private_key)
-            half_secret_key1 = solitaire.generate_random_secret()
-            client.send_specific_message(client, client_port, private_key, 'SECRET ' + half_secret_key1)
-            common_secret_key = solitaire.generate_common_secret(half_secret_key1, half_secret_key2)
+            elif answer == 'receive':
+                partner_port = int(client.wait_for_hello())
+                if partner_port:
+                    partner_public_key = client.request_public_key(partner_port)
+                    if partner_public_key:
+                        client.send_specific_message(partner_port, partner_public_key, 'ACK ' + str(port))
+                        half_secret_key2 = client.wait_for_half_secret_key()
+                        if half_secret_key2:
+                            half_secret_key1 = solitaire.generate_random_secret()
+                            client.send_specific_message(partner_port, partner_public_key, 'SECRET ' + half_secret_key1)
+                            common_secret_key = solitaire.generate_common_secret(half_secret_key2, half_secret_key1)
+
+            elif answer == 'exit()':
+                client.close()
+                exit()
+        except ConnectionResetError:
+            print('Server stopped')
+            client.close()
+            exit()
 
 
 if __name__ == '__main__':

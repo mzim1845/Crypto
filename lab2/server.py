@@ -1,6 +1,7 @@
 import socket
 import pickle
 import logging
+import tracemalloc
 from _thread import *
 
 # list of (port, public key)s
@@ -30,11 +31,11 @@ class Server:
 
         # receiving connections
         while True:
-            connection, address = server.accept()
-            from_client = connection.recv(2048)
-            data_recv = pickle.loads(from_client)
-            logging.info("New client: " + str(data_recv))
-            start_new_thread(self.client_handler, (connection, data_recv))
+                connection, address = server.accept()
+                from_client = connection.recv(2048)
+                data_recv = pickle.loads(from_client)
+                logging.info("New client: " + str(data_recv))
+                start_new_thread(self.client_handler, (connection, data_recv))
 
     @staticmethod
     def register_client(client_data):
@@ -55,25 +56,30 @@ class Server:
 
     def client_handler(self, conn, client_data):
         self.register_client(client_data)
-
         while True:
-            data_recv = conn.recv(2048)
-            if data_recv:
-                message = int(data_recv.decode())
-                found_client = [client for client in keys if client[0] == message]
-                if not found_client:
-                    logging.info("Client " + str(client_data[0]) + ": looking for "
-                                     + str(message) + " - not found")
-                    conn.send("NOT FOUND".encode())
+            try:
+                data_recv = conn.recv(2048)
+                if data_recv:
+                    message = int(data_recv.decode())
+
+                    found_client = [client for client in keys if client[0] == message]
+                    if not found_client:
+                        logging.info("Client " + str(client_data[0]) + ": looking for "
+                                             + str(message) + " - not found")
+                        conn.send("NOT FOUND".encode())
+                    else:
+                        logging.info("Client " + str(client_data[0]) + ": looking for "
+                                             + str(message) + " - found")
+                        conn.send(str(found_client[0][1]).encode())
                 else:
-                    logging.info("Client " + str(client_data[0]) + ": looking for "
-                                     + str(message) + " - found")
-                    conn.send(str(found_client[0][1]).encode())
-            else:
+                    logging.info("Client " + str(client_data[0]) + ": exited")
+                    self.remove_client(client_data)
+                    break
+            except ConnectionResetError:
                 logging.info("Client " + str(client_data[0]) + ": exited")
                 self.remove_client(client_data)
                 break
-
+        exit_thread()
         conn.close()
 
 

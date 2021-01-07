@@ -3,7 +3,7 @@ from ..modules import knapsack
 from ..modules import solitaire
 
 plaintext1 = 'CLEAR AND PLAIN AND COMING THROUGH FINE'
-plaintext2 = '8081'
+plaintext2 = 'HELLO 8081'
 plaintext3 = 'General Ripper called Strategic Air Command Headquarters shortly after he issued the go code'
 
 
